@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import SearchResults from './SearchResults';
+import SearchBar from './SearchBar'
+import TrackList from './TrackList'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+
+function App(){
+
+    return <>
+        <h1>Fluffy Awesome Spotify List Maker</h1>
+        <div id='container'>
+            <div id ="searchContainer">
+                <h2>Search</h2>
+                <SearchBar />
+                <SearchResults />
+            </div>
+            <div id="playListContainer">
+                <h2>Playlist</h2>
+                <TrackList />
+            </div>
+        
+        </div>
+
+
+    </>
 }
 
-export default App;
+
+export default App
