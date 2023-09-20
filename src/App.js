@@ -8,20 +8,25 @@ import Spotify from './Spotify'
 
 function App(){
     const [accessToken, setAccessToken] = useState('');
+    const [searchResults, setSearchResults] = useState([])
 
     useEffect(() => {
-        setAccessToken( Spotify.SpotifyAccessToken())
+         Spotify.spotifyAccessToken(setAccessToken)
       },[]); // run the access routine once at the start
+
+    const searchBarCallback= (results)=>{
+        setSearchResults(results)
+      }
 
     return (
     <>
         <h1>Fluffy Awesome Spotify List Maker</h1>
-        <p>{accessToken}</p>
+       
         <div id='container'>
             <div id ="searchContainer">
                 <h2>Search</h2>
-                <SearchBar />
-                <SearchResults />
+                <SearchBar callback={searchBarCallback} accessToken={accessToken} />
+                <SearchResults searchResults={searchResults} />
             </div>
             <div id="playListContainer">
                 <h2>Playlist</h2>
@@ -36,3 +41,5 @@ function App(){
 
 
 export default App
+
+

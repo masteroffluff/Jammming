@@ -1,7 +1,15 @@
 import React from 'react';
 
-function SearchResults(){
+function SearchResults({searchResults}){
     return<>
+        {searchResults.map((sr)=>{return(
+            <>
+                <h3>{sr.name}</h3>
+                <p>{sr.album} {sr.artist}</p>
+                <br />
+            </>
+        )}
+        )}
     </>
 }
 
