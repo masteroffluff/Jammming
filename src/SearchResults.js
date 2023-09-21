@@ -1,13 +1,25 @@
 import React from 'react';
+import Track from './Track';
 
-function SearchResults({searchResults}){
+
+
+function SearchResults({searchResults,callback}){
+    const addToPlaylist=(t)=>{
+        callback(t)
+    }
+
     return<>
-        {searchResults.map((sr)=>{return(
-            <>
-                <h3>{sr.name}</h3>
-                <p>{sr.album} {sr.artist}</p>
-                <br />
-            </>
+        {searchResults.map((track)=>{return(
+        <>
+            <ul>
+                <Track 
+                key={track.id} 
+                track={track} 
+                callback={addToPlaylist}
+                callBackLabel={'Add'}
+                />
+            </ul>        
+        </>
         )}
         )}
     </>

@@ -1,9 +1,9 @@
-import mockSearchResults from "./mockSearchResults"
+//import mockSearchResults from "./mockSearchResults"
 
 const client_id = '5a8b6b4d07494bc9b4885a6d959083c1';
 const client_secret = 'd1148ead55644cb398608925944bc292';
 
-let accessToken ='';
+//let accessToken ='';
 
 //Obtain a Spotify Access Token
 
@@ -37,9 +37,11 @@ const Spotify={
     },
 
 //Implement Spotify Search Request
-    search:()=>(input,callback)=>{
+    search:(input,accessToken,callback)=>{
+        if (input==='') {return []}
         console.log(input)
         const processJSONintoTrackArray=(resultsJSON)=>{
+            
             function trackFactory(id,name,artist,album){
                 return {
                     id,
@@ -48,14 +50,36 @@ const Spotify={
                     album
                 }
             }
-            const tempId= resultsJSON.tracks.items[0].id
-            const tempName= resultsJSON.tracks.items[0].name
-            const tempAlbum= resultsJSON.tracks.items[0].album.name
-            const tempArtist= resultsJSON.tracks.items[0].artists[0].name
-            return [trackFactory(tempId,tempName,tempAlbum,tempArtist)]
+
+
+            return resultsJSON.tracks.items.map((item)=>trackFactory(item.id,item.name,item.album.name,item.artists[0].name))
         }
-        callback (processJSONintoTrackArray(mockSearchResults)) // goes in the last then statment of the search as that function will be asynch
+
+        const uriInput = encodeURIComponent(input)
         
+        const endPoint = `https://api.spotify.com/v1/search?q=${uriInput}&type=track&market=GB`
+        console.log(endPoint)
+        const searchParmeters = {
+            method:'GET',
+            headers: {
+              Authorization: 'Bearer ' + accessToken
+            }
+        }
+        fetch(endPoint,searchParmeters)
+        .then(
+            response=>{if(response.ok) {return response.json()};
+            throw new Error('Request failed!');}        
+        ) 
+        .then(result=>{
+            console.log(JSON.stringify(result))
+            return (callback (processJSONintoTrackArray(result)))}) 
+        
+        }        
+
+
+         // goes in the last then statment of the search as that function will be asynch
+        
+
         
         
 
@@ -64,7 +88,7 @@ const Spotify={
 
 
 //Save a User’s Playlist
-};
+
 
 export default Spotify;
 

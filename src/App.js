@@ -9,14 +9,21 @@ import Spotify from './Spotify'
 function App(){
     const [accessToken, setAccessToken] = useState('');
     const [searchResults, setSearchResults] = useState([])
+    const [newTrack, setNewTrack]= useState()
+
 
     useEffect(() => {
          Spotify.spotifyAccessToken(setAccessToken)
       },[]); // run the access routine once at the start
 
     const searchBarCallback= (results)=>{
+        console.log("search bar callback")
         setSearchResults(results)
+
       }
+    const addToPlaylist=(t)=>{
+        setNewTrack(t)
+    }
 
     return (
     <>
@@ -26,11 +33,11 @@ function App(){
             <div id ="searchContainer">
                 <h2>Search</h2>
                 <SearchBar callback={searchBarCallback} accessToken={accessToken} />
-                <SearchResults searchResults={searchResults} />
+                <SearchResults searchResults={searchResults} callback={addToPlaylist} />
             </div>
             <div id="playListContainer">
                 <h2>Playlist</h2>
-                <TrackList />
+                <TrackList newTrack={newTrack}/>
             </div>
         
         </div>
