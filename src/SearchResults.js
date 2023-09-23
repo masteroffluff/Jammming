@@ -9,11 +9,11 @@ function SearchResults({searchResults,callback}){
     }
 
     return<>
-        {searchResults.map((track)=>{return(
+        {searchResults.map((track,index)=>{return(
         <>
             <ul>
                 <Track 
-                key={track.id} 
+                key={index} 
                 track={track} 
                 callback={addToPlaylist}
                 callBackLabel={'Add'}

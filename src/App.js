@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import SearchResults from './SearchResults';
 import SearchBar from './SearchBar'
-import TrackList from './TrackList'
+import PlayList from './PlayList'
 import Spotify from './Spotify'
 
 
@@ -36,8 +36,7 @@ function App(){
                 <SearchResults searchResults={searchResults} callback={addToPlaylist} />
             </div>
             <div id="playListContainer">
-                <h2>Playlist</h2>
-                <TrackList newTrack={newTrack}/>
+                <PlayList newTrack={newTrack} accessToken={accessToken} />
             </div>
         
         </div>

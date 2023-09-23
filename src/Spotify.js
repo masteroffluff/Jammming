@@ -74,20 +74,18 @@ const Spotify={
             console.log(JSON.stringify(result))
             return (callback (processJSONintoTrackArray(result)))}) 
         
-        }        
+    },
 
-
-         // goes in the last then statment of the search as that function will be asynch
-        
-
-        
-        
-
-
+//Save a User’s Playlist
+    savePlaylistToSpotify:(name,playList,accessToken)=>{
+        alert (name + accessToken)
     }
 
 
-//Save a User’s Playlist
+}
+
+
+
 
 
 export default Spotify;
