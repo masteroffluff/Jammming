@@ -10,6 +10,7 @@ const client_secret = 'd1148ead55644cb398608925944bc292';
 const Spotify={
     
     spotifyAccessToken: (callback)=>{
+        const accessTokenEndpoint = 'https://accounts.spotify.com/api/token';
         const authParameters ={
             method:'POST',
             headers:{
@@ -19,7 +20,7 @@ const Spotify={
         }
 
         try{
-            return fetch('https://accounts.spotify.com/api/token', authParameters)
+            return fetch(accessTokenEndpoint, authParameters)
             .then(
                 response=>{if(response.ok) {return response.json()};
                 throw new Error('Request failed!');}        
@@ -52,7 +53,7 @@ const Spotify={
             }
 
 
-            return resultsJSON.tracks.items.map((item)=>trackFactory(item.id,item.name,item.album.name,item.artists[0].name))
+            return resultsJSON.tracks.items.map((item)=>trackFactory(item.id,item.name,item.artists[0].name,item.album.name))
         }
 
         const uriInput = encodeURIComponent(input)
@@ -77,8 +78,29 @@ const Spotify={
     },
 
 //Save a User’s Playlist
-    savePlaylistToSpotify:(name,playList,accessToken)=>{
-        alert (name + accessToken)
+    savePlaylistToSpotify:async (name,playList,accessToken)=>{
+        // get the username
+        const GetUserName = ()=>{
+            const userNameEndPoint = 'https://api.spotify.com/v1/me'
+            const usernameParameters = {
+                method: 'GET',
+                headers:{
+                    Authorization: 'Bearer ' + accessToken
+                }
+            }
+            fetch(userNameEndPoint,usernameParameters)
+            .then(
+                response=>{if(response.ok) {return response.json()};
+                throw new Error('Username Request failed!');}        
+            ) 
+            .then(result=>{
+                console.log(JSON.stringify(result))
+                return (alert(result.display_name))
+            })
+
+        }
+        GetUserName()
+        
     }
 
 
