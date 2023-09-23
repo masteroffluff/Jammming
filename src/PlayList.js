@@ -1,19 +1,19 @@
 import React, {useState, useEffect} from 'react';
 import Track from './Track'
+import Spotify from './Spotify'
 
-const dummyTracklist = [
-    {id:1, name:"Trust the Pain",artist:'Witch of the Vale',album:'Commemorate'},
-    {id:2, name:"Juicy",artist:'Angelspit',album:'Krankhaus'}
-]
 
-function PlayList({newTrack}){
-  const [tracks,setTracks] = useState(dummyTracklist) // state to hold the playist
+function PlayList({newTrack,accessToken}){
+  const [tracks,setTracks] = useState([]) // state to hold the playist
   const [playlistName,setPlaylistName] = useState('') // state to hold the playist name
 
   useEffect(()=>{
     if (newTrack) {
       console.log (newTrack.name)
+      if (tracks.lenght===0||!(tracks.map(item => item.id).includes(newTrack.id))){
+    
       setTracks((prev) => ([ ...prev, newTrack]))
+      }
     }
   }
   ,[newTrack])
@@ -23,7 +23,7 @@ function PlayList({newTrack}){
   }
 
   function handleClick(){
-        alert("saved to spotify")
+      Spotify.savePlaylistToSpotify(playlistName,tracks,accessToken)
     }
 
   const removeTrack = (trackToRemove) => {
@@ -36,7 +36,7 @@ function PlayList({newTrack}){
       
       <h2>Playlist</h2>
       <form>
-        <label for='Playlist Name'></label>
+        <label for='Playlist Name'>Playlist Name</label>
         <input name='Playlist Name' onChange={handlePlayListNameChange} value={playlistName} />
       </form>
       <ul>  

@@ -7,11 +7,12 @@ function Track({track,callback, callBackLabel}){
 
     }
 
-    return <>
-    <li>{track.name},{track.artist},{track.album} 
-    <button onClick={handleRemoveClick}>{callBackLabel}</button>
-    </li>
-    </>
+    return (
+    <div style={{width:500, textAlign:'left'}}>
+        <li>{track.name},{track.artist},{track.album} 
+        <button onClick={handleRemoveClick}>{callBackLabel}</button>
+        </li>
+    </div>)
 }
 
 export default Track

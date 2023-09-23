@@ -3,6 +3,7 @@ import SearchResults from './SearchResults';
 import SearchBar from './SearchBar'
 import PlayList from './PlayList'
 import Spotify from './Spotify'
+import './App.css'
 
 
 
@@ -26,23 +27,23 @@ function App(){
     }
 
     return (
-    <>
-        <h1>Fluffy Awesome Spotify List Maker</h1>
+    <div className='App'>
+        <h1 style={{width:'100%', textAlign:'center'}}>Fluffy's Awesome Spotify List Maker</h1>
        
-        <div id='container'>
-            <div id ="searchContainer">
+        <div className='trackContainer'>
+            <div className='container'>
                 <h2>Search</h2>
                 <SearchBar callback={searchBarCallback} accessToken={accessToken} />
                 <SearchResults searchResults={searchResults} callback={addToPlaylist} />
             </div>
-            <div id="playListContainer">
+            <div className="container">
                 <PlayList newTrack={newTrack} accessToken={accessToken} />
             </div>
         
         </div>
 
 
-    </>)
+    </div>)
 }
 
 
