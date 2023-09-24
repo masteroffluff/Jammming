@@ -17,6 +17,7 @@ function SearchBar({callback,accessToken}){
     
 
     return <>
+    <h2>Search</h2>
     <form onSubmit={handleSubmit}>
         <label for="name">Name</label>
         <input name="name" value={trackName} onChange = {handleNameChange}/>

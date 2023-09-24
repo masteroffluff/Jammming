@@ -1,7 +1,7 @@
 //import mockSearchResults from "./mockSearchResults"
 
 const client_id = '5a8b6b4d07494bc9b4885a6d959083c1';
-const scope = 'user-read-private playlist-modify-private';
+const scope = 'user-read-private playlist-modify-private playlist-modify-public';
 
 
 //Obtain a Spotify Access Token
@@ -104,7 +104,7 @@ const Spotify={
         
         
     },
-
+// *************************************************************************************************************************
 //Implement Spotify Search Request
     search:(input,accessToken,callback)=>{
         
@@ -113,30 +113,32 @@ const Spotify={
         console.log(input)
         const processJSONintoTrackArray=(resultsJSON)=>{
             
-            function trackFactory(id,name,artist,album){
+            function trackFactory(id,name,artist,album,uri){
                 return {
                     id,
                     name,
                     artist,
-                    album
+                    album,
+                    uri
+
                 }
             }
 
 
-            return resultsJSON.tracks.items.map((item)=>trackFactory(item.id,item.name,item.artists[0].name,item.album.name))
+            return resultsJSON.tracks.items.map((item)=>trackFactory(item.id,item.name,item.artists[0].name,item.album.name,item.uri))
         }
 
         const uriInput = encodeURIComponent(input)
         
         const endPoint = `https://api.spotify.com/v1/search?q=${uriInput}&type=track&market=GB`
-        console.log(endPoint)
-        const searchParmeters = {
+        //console.log(endPoint)
+        const parameters = {
             method:'GET',
             headers: {
               Authorization: 'Bearer ' + accessToken
             }
         }
-        fetch(endPoint,searchParmeters)
+        fetch(endPoint,parameters)
         .then(
             response=>{if(response.ok) {return response.json()};
             throw new Error('Request failed!');}        
@@ -146,34 +148,79 @@ const Spotify={
             return (callback (processJSONintoTrackArray(result)))}) 
         
     },
-
+// *************************************************************************************************************************
 //Save a User’s Playlist
-    savePlaylistToSpotify:async (name,playList,accessToken)=>{
+    savePlaylistToSpotify: (name,playList,accessToken)=>{
         // get the username
-        const GetUserName = ()=>{
-            const userNameEndPoint = 'https://api.spotify.com/v1/me'
-            const usernameParameters = {
+        const GetUserName = async()=>{
+            const endPoint = 'https://api.spotify.com/v1/me'
+            const parameters = {
                 method: 'GET',
                 headers:{
                     Authorization: 'Bearer ' + accessToken
                 }
             }
-            fetch(userNameEndPoint,usernameParameters)
+            fetch(endPoint,parameters)
             .then(
                 response=>{if(response.ok) {return response.json()};
-                throw new Error('Username Request failed!');}        
+                throw new Error('Username Request failed!  ' + response.status);}        
             ) 
             .then(result=>{
-                console.log(JSON.stringify(result))
-                return (alert(result.display_name))
+                //console.log(JSON.stringify(result))
+                return (alert(result.id))
             })
 
         }
-        GetUserName()
-        
+        const makePlaylist=async(userId)=>{
+            const endPoint = `https://api.spotify.com/v1/users/${userId}/playlists`;
+            const parameters={
+                method:'POST',
+                header: {
+                    Authorization: 'Bearer '+accessToken,
+                    'Content-Type': 'application/json'
+                },
+                body: 
+                {
+                    "name": name,
+                    "description": "",
+                    "public": false
+                }
+            };
+            fetch(endPoint,parameters)
+            .then(
+                response=>{if(response.ok) {return response.json()};
+                throw new Error('Make Playlist Request failed!  ' + response.status + ' user id ' + userId);}        
+            ) 
+            .then(result=>{
+                console.log(JSON.stringify(result))
+                return (alert(result.id))
+            });
+        }
+        const addTracks=async (playListId)=>{
+            const endPoint = `https://api.spotify.com/v1/playlists/${playListId}/tracks`;
+            const parameters ={
+                method:'POST',
+                header: 'Authorization: Bearer '+accessToken,
+                body:
+                {
+                    uris:playList.map((t)=>t.uri)
+                }
+            };
+            fetch(endPoint,parameters)
+            .then(
+                response=>{if(response.ok) {return response.json()};
+                throw new Error('Add Tracks Request failed!  '  + response.status + ' playlist id ' + playListId );}        
+            ) 
+            .then(result=>{
+                console.log(JSON.stringify(result))
+                return (alert('Playlist Saved!'))
+            });
+
+        }
+        GetUserName().then((userId=>makePlaylist(userId))).then((playListId)=>addTracks(playListId))
     }
 
-
+    
 }
 
 
@@ -182,25 +229,3 @@ const Spotify={
 
 export default Spotify;
 
-
-async function getTokenFromAPI() {
-    try {
-        var params = {
-            client_id: '<client_id>',
-            response_type: 'token',
-            redirect_uri: 'http://localhost:8888/callback'
-        };
-
-        var esc = encodeURIComponent;
-        var query = Object.keys(params)
-            .map(k => `${esc(k)}=${esc(params[k])}`)
-            .join('&');
-
-        fetch('https://accounts.spotify.com/authorize', query).then(function (response) {
-            console.log('response, ' + JSON.stringify(response));
-            return response;
-        })
-    } catch(error) {
-        console.error(error);
-    }
-}

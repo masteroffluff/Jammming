@@ -11,7 +11,9 @@ function App(){
     const [newTrack, setNewTrack]= useState()
 
     const handleClick=()=>{
-        alert('click')
+        //alert('click')
+        setAccessToken('');
+        
         Spotify.spotifyAccessToken(setAccessToken,accessToken)
     }
 
@@ -31,11 +33,11 @@ function App(){
     if(accessToken){
     return (
     <div className='App'>
-        <h1 style={{width:'100%', textAlign:'center'}}>Fluffy's Awesome Spotify List Maker</h1>
+        <h1 style={{width:'100%', textAlign:'center'}}>JAMMMING aka Fluffy's Awesome Spotify List Maker</h1>
        
         <div className='trackContainer'>
             <div className='container'>
-                <h2>Search</h2>
+                
                 <SearchBar callback={searchBarCallback} accessToken={accessToken} />
                 <SearchResults searchResults={searchResults} callback={addToPlaylist} />
             </div>

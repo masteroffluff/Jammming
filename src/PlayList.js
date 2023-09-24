@@ -35,7 +35,8 @@ function PlayList({newTrack,accessToken}){
     return (
     <>
       
-      <h2>Playlist</h2>
+      <h2 style={{marginRight:10, display:'inline'}}>Playlist</h2>
+      <button type="text" onClick={handleClick}>Save To Spotify</button>
       <form onSubmit={(e)=>e.preventDefault()}>
         <label for='Playlist Name'>Playlist Name</label>
         <input name='Playlist Name' onChange={handlePlayListNameChange} value={playlistName} />
@@ -50,8 +51,8 @@ function PlayList({newTrack,accessToken}){
           />
         ))}
       </ul>
-      <br />
-      <button type="text" onClick={handleClick}>Save To Spotify</button>
+      
+      
     </>)
 }
 
