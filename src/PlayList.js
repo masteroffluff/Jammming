@@ -19,6 +19,7 @@ function PlayList({newTrack,accessToken}){
   ,[newTrack])
 
   function handlePlayListNameChange({target}){
+    
     setPlaylistName(target.value)
   }
 
@@ -35,7 +36,7 @@ function PlayList({newTrack,accessToken}){
     <>
       
       <h2>Playlist</h2>
-      <form>
+      <form onSubmit={(e)=>e.preventDefault()}>
         <label for='Playlist Name'>Playlist Name</label>
         <input name='Playlist Name' onChange={handlePlayListNameChange} value={playlistName} />
       </form>

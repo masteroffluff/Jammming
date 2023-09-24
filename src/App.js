@@ -5,13 +5,15 @@ import PlayList from './PlayList'
 import Spotify from './Spotify'
 import './App.css'
 
-
-
 function App(){
     const [accessToken, setAccessToken] = useState('');
     const [searchResults, setSearchResults] = useState([])
     const [newTrack, setNewTrack]= useState()
 
+    const handleClick=()=>{
+        alert('click')
+        Spotify.spotifyAccessToken(setAccessToken,accessToken)
+    }
 
     useEffect(() => {
          Spotify.spotifyAccessToken(setAccessToken)
@@ -26,6 +28,7 @@ function App(){
         setNewTrack(t)
     }
 
+    if(accessToken){
     return (
     <div className='App'>
         <h1 style={{width:'100%', textAlign:'center'}}>Fluffy's Awesome Spotify List Maker</h1>
@@ -43,10 +46,14 @@ function App(){
         </div>
 
 
+    </div>)}
+    return(
+    <div className='App'>
+        <h1 style={{width:'100%', textAlign:'center'}}>Fluffy's Awesome Spotify List Maker</h1>
+    <button onClick={handleClick}>Logon to spotify</button>
     </div>)
+  
 }
 
 
 export default App
-
-
