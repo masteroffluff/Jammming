@@ -1,0 +1,10 @@
+
+
+.searchbar{
+    width:500;
+    text-align:'left';
+    margin:2px;
+    border:green solid 1px;
+    padding: 3px;
+    line-height: 0em;
+}

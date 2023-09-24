@@ -1,0 +1,62 @@
+
+
+.track{
+    width:500;
+    text-align:'left';
+    margin:2px;
+    border:green solid 1px;
+    padding: 3px;
+    line-height: 0em;
+}
+
+
+ .track1 {
+    height: 1.5rem;	
+    overflow: hidden;
+    position: relative;
+   }
+   .track1 h3 {
+    
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    line-height: 1.5rem;
+    text-align: bottom;
+    transition: 15s;
+    transform: translateX(0%);
+    animation: track1 10s linear infinite;
+    
+    
+   }
+   /* Move it (define the animation) */
+   @keyframes track1 {
+    0%   { 
+    -moz-transform: translateX(100%); /* Firefox bug fix */
+    -webkit-transform: translateX(100%); /* Firefox bug fix */
+    transform: translateX(100%); 		
+    }
+    100% { 
+    -moz-transform: translateX(-100%); /* Firefox bug fix */
+    -webkit-transform: translateX(-100%); /* Firefox bug fix */
+    transform: translateX(-100%); 
+    }
+   }
+   .track2 {
+    height: 1.5rem;	
+    overflow: hidden;
+    position: relative;
+   }
+   .track2 h3 {
+    
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    line-height: 1.5rem;
+    text-align: bottom;
+
+
+    
+    
+   }

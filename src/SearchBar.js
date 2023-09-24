@@ -1,5 +1,6 @@
 import React,{useState} from 'react';
 import Spotify from './Spotify.js'
+import style from './searchbar.module.css'
 
 function SearchBar({callback,accessToken}){
 
@@ -16,19 +17,19 @@ function SearchBar({callback,accessToken}){
     }
     
 
-    return <>
-    <h2>Search</h2>
-    <form onSubmit={handleSubmit}>
-        <label for="name">Name</label>
-        <input name="name" value={trackName} onChange = {handleNameChange}/>
-        <p>{trackName}</p>
+    return (
+    <div className={style.searchbar}>
+        <h2>Search</h2>
+        <form onSubmit={handleSubmit}>
+            <label for="name">Name:</label>
+            <input name="name" value={trackName} onChange = {handleNameChange}/>
 {/*         <label for="artist">Artist</label>
-        <input name="artist" />
-        <label for="album">Album</label>
-        <input name="album" />     */
-        <button type="submit">🔍</button> }
-    </form>
-    </>
+            <input name="artist" />
+            <label for="album">Album</label>
+            <input name="album" /> */}
+            <button type="submit">🔍 Search</button>
+        </form>
+    </div>)
 }
 
 

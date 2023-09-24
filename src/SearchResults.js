@@ -11,14 +11,12 @@ function SearchResults({searchResults,callback}){
     return<>
         {searchResults.map((track,index)=>{return(
         <>
-            <ul>
                 <Track 
                 key={index} 
                 track={track} 
                 callback={addToPlaylist}
                 callBackLabel={'Add'}
                 />
-            </ul>        
         </>
         )}
         )}

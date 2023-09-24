@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import Track from './Track'
 import Spotify from './Spotify'
+import style from './PlayList.module.css'
 
 
 function PlayList({newTrack,accessToken}){
@@ -10,7 +11,8 @@ function PlayList({newTrack,accessToken}){
   useEffect(()=>{
     if (newTrack) {
       console.log (newTrack.name)
-      if (tracks.lenght===0||!(tracks.map(item => item.id).includes(newTrack.id))){
+      let onTrackList = tracks.map(item => item.id).includes(newTrack.id)
+      if (!onTrackList){
     
       setTracks((prev) => ([ ...prev, newTrack]))
       }
@@ -34,25 +36,29 @@ function PlayList({newTrack,accessToken}){
     }
 
     return (
-    <>
-      
-      <h2 style={{marginRight:10, display:'inline'}}>Playlist</h2>
-      <button type="text" onClick={handleClick}>Save To Spotify</button>
-      <form onSubmit={(e)=>e.preventDefault()}>
-        <label for='Playlist Name'>Playlist Name</label>
-        <input name='Playlist Name' onChange={handlePlayListNameChange} value={playlistName} />
-      </form>
-      <ul>  
-        {tracks.map((track,index) => (
-          <Track 
-            key={index} 
-            track={track} 
-            callback={removeTrack}
-            callBackLabel={'X'}
-          />
-        ))}
-      </ul>
-      
+      <>
+      <div className={style.PlayList}>
+        
+        <h2>Playlist</h2>
+        
+        <form onSubmit={(e)=>e.preventDefault()}>
+          <label for='Playlist Name'>Playlist Name:</label>
+          <input name='Playlist Name' onChange={handlePlayListNameChange} value={playlistName} />
+          <button type="text" onClick={handleClick}>Save To Spotify</button>
+        </form>
+        
+        </div>  
+          {tracks.map((track,index) => (
+            <Track 
+              key={index} 
+              track={track} 
+              callback={removeTrack}
+              callBackLabel={'X'}
+            />
+          ))}
+
+        
+        
       
     </>)
 }
