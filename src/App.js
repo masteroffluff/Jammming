@@ -12,9 +12,11 @@ function App(){
 
     const handleClick=()=>{
         //alert('click')
-        setAccessToken('');
-        
-        Spotify.spotifyAccessToken(setAccessToken,accessToken)
+        //setAccessToken('');
+        window.location.replace(
+            'http://localhost:3000',
+          );
+        Spotify.spotifyAccessToken(setAccessToken,'')
     }
 
     useEffect(() => {

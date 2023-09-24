@@ -19,11 +19,12 @@ function PlayList({newTrack,accessToken}){
   ,[newTrack])
 
   function handlePlayListNameChange({target}){
-    
+    console.log (target.value)
     setPlaylistName(target.value)
   }
 
   function handleClick(){
+    
       Spotify.savePlaylistToSpotify(playlistName,tracks,accessToken)
     }
 

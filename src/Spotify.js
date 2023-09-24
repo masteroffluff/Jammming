@@ -2,7 +2,7 @@
 
 const client_id = '5a8b6b4d07494bc9b4885a6d959083c1';
 const scope = 'user-read-private playlist-modify-private playlist-modify-public';
-
+const redirectUri = 'http://localhost:3000';
 
 //Obtain a Spotify Access Token
 
@@ -10,7 +10,7 @@ const Spotify={
     
     spotifyAccessToken: (callback,accessToken)=>{
         const urlParams = new URLSearchParams(window.location.search);
-        const redirectUri = 'http://localhost:3000';
+        
         
 
         if (accessToken){return accessToken}
@@ -40,7 +40,7 @@ const Spotify={
                 return response.json();
             })
             .then(data => {
-                alert(data.access_token)
+                //alert(data.access_token)
                 callback(data.access_token);
             })
             .catch(error => {
@@ -149,77 +149,89 @@ const Spotify={
         
     },
 // *************************************************************************************************************************
-//Save a User’s Playlist
-    savePlaylistToSpotify: (name,playList,accessToken)=>{
-        // get the username
-        const GetUserName = async()=>{
-            const endPoint = 'https://api.spotify.com/v1/me'
-            const parameters = {
-                method: 'GET',
-                headers:{
-                    Authorization: 'Bearer ' + accessToken
-                }
-            }
-            fetch(endPoint,parameters)
-            .then(
-                response=>{if(response.ok) {return response.json()};
-                throw new Error('Username Request failed!  ' + response.status);}        
-            ) 
-            .then(result=>{
-                //console.log(JSON.stringify(result))
-                return (alert(result.id))
-            })
-
-        }
-        const makePlaylist=async(userId)=>{
-            const endPoint = `https://api.spotify.com/v1/users/${userId}/playlists`;
-            const parameters={
-                method:'POST',
-                header: {
-                    Authorization: 'Bearer '+accessToken,
-                    'Content-Type': 'application/json'
-                },
-                body: 
-                {
-                    "name": name,
-                    "description": "",
-                    "public": false
-                }
-            };
-            fetch(endPoint,parameters)
-            .then(
-                response=>{if(response.ok) {return response.json()};
-                throw new Error('Make Playlist Request failed!  ' + response.status + ' user id ' + userId);}        
-            ) 
-            .then(result=>{
-                console.log(JSON.stringify(result))
-                return (alert(result.id))
-            });
-        }
-        const addTracks=async (playListId)=>{
-            const endPoint = `https://api.spotify.com/v1/playlists/${playListId}/tracks`;
-            const parameters ={
-                method:'POST',
-                header: 'Authorization: Bearer '+accessToken,
-                body:
-                {
-                    uris:playList.map((t)=>t.uri)
-                }
-            };
-            fetch(endPoint,parameters)
-            .then(
-                response=>{if(response.ok) {return response.json()};
-                throw new Error('Add Tracks Request failed!  '  + response.status + ' playlist id ' + playListId );}        
-            ) 
-            .then(result=>{
-                console.log(JSON.stringify(result))
-                return (alert('Playlist Saved!'))
-            });
-
-        }
-        GetUserName().then((userId=>makePlaylist(userId))).then((playListId)=>addTracks(playListId))
+// Save a User’s Playlist
+savePlaylistToSpotify: async (name, playList, accessToken) => {
+    if (!name || !playList.length) {
+        alert('Nothing chosen');
+        return;
     }
 
+    const GetUserName = async () => {
+        const endPointGetUserName = 'https://api.spotify.com/v1/me';
+        const parametersGetUserName = {
+            method: 'GET',
+            headers: {
+                Authorization: 'Bearer ' + accessToken
+            }
+        };
+
+        const response = await fetch(endPointGetUserName, parametersGetUserName);
+
+        if (response.ok) {
+            const result = await response.json();
+            console.log(JSON.stringify(result));
+            return result.id;
+        } else {
+            throw new Error('Username Request failed! ' + response.status);
+        }
+    };
+
+    const makePlaylist = async (userId) => {
+        const endPointMakePlaylist = `https://api.spotify.com/v1/users/${userId}/playlists`;
+        const body = JSON.stringify({
+            "name": name,
+            "description": "Jammming List",
+            "public": false
+        });
+
+        const parametersMakePlaylist = {
+            method: 'POST',
+            headers: {
+                Authorization: 'Bearer ' + accessToken,
+                'Content-Type': 'application/json'
+            },
+            body: body
+        };
+
+        const response = await fetch(endPointMakePlaylist, parametersMakePlaylist);
+
+        if (response.ok) {
+            const result = await response.json();
+            console.log(JSON.stringify(result));
+            return result.id;
+        } else {
+            throw new Error('Make Playlist Request failed! ' + response.status);
+        }
+    };
+
+    const addTracks = async (playListId) => {
+        const endPointAddTracks = `https://api.spotify.com/v1/playlists/${playListId}/tracks`;
+        const parametersAddTracks = {
+            method: 'POST',
+            headers: {
+                Authorization: 'Bearer ' + accessToken,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                uris: playList.map((t) => t.uri)
+            })
+        };
+
+        const response = await fetch(endPointAddTracks, parametersAddTracks);
+
+        if (response.ok) {
+            const result = await response.json();
+            console.log(JSON.stringify(result));
+            alert('Playlist Saved!');
+        } else {
+            throw new Error('Add Tracks Request failed! ' + response.status);
+        }
+    };
+
+    const userID = await GetUserName();
+    const playListId = await makePlaylist(userID);
+    await addTracks(playListId);
+}
     
 }
 
