@@ -4,7 +4,7 @@ import Spotify from './Spotify'
 import style from './PlayList.module.css'
 
 
-function PlayList({playlist,accessToken, callback}){
+function PlayList({playlist,accessToken, removeCallback}){
 
   const [playlistName,setPlaylistName] = useState('') // state to hold the playist name
 
@@ -21,7 +21,7 @@ function PlayList({playlist,accessToken, callback}){
 
   const removeTrack = (trackToRemove) => {
     const trackIdToRemove = trackToRemove.id;
-    callback((prev)=>{return prev.filter((t)=>t.id!==trackIdToRemove)})
+    removeCallback(trackIdToRemove);
     }
 
     return (

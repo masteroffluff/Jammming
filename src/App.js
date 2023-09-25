@@ -10,6 +10,22 @@ function App(){
     const [searchResults, setSearchResults] = useState([]);
     const [playlist,setPlaylist]=useState([]);
 
+    useEffect(() => {
+        Spotify.spotifyAccessToken(setAccessToken)
+     },[]); // run the access routine once at the start
+
+    useEffect(()=>{
+        if (playlist){
+        setSearchResults((prev)=>prev.filter((item)=>!((playlist.map((pl)=>pl.id)).includes(item.id))))
+        }}
+
+        ,[playlist,searchResults])
+        
+/*     const filterSerachList= ()=>{
+        setSearchResults((prev)=>prev.filter((item)=>!((playlist.map((pl)=>pl.id)).includes(item.id))))
+    } */
+
+
     const handleClick=()=>{
         //alert('click')
         //setAccessToken('');
@@ -19,25 +35,25 @@ function App(){
         Spotify.spotifyAccessToken(setAccessToken,'')
     }
 
-    useEffect(() => {
-         Spotify.spotifyAccessToken(setAccessToken)
-      },[]); // run the access routine once at the start
 
     const searchBarCallback= (results)=>{
         console.log("search bar callback")
         setSearchResults(results)
-
+        
       }
+    
     const addToPlaylist=(t)=>{
         let onPlayList = playlist.map(item => item.id).includes(t.id)
         if (!onPlayList){
       
             setPlaylist((prev) => ([ ...prev, t]))
+            
         }
     }
-    const removeTrack = (trackToRemove) => {
-        const trackIdToRemove = trackToRemove.id;
+    const removeTrack = (trackIdToRemove) => {
+        
         setPlaylist((prev)=>{return prev.filter((t)=>t.id!==trackIdToRemove)})
+        
         }
 
     if(accessToken){
