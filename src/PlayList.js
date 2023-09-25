@@ -1,24 +1,13 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import Track from './Track'
 import Spotify from './Spotify'
 import style from './PlayList.module.css'
 
 
-function PlayList({newTrack,accessToken}){
-  const [tracks,setTracks] = useState([]) // state to hold the playist
+function PlayList({playlist,accessToken, callback}){
+
   const [playlistName,setPlaylistName] = useState('') // state to hold the playist name
 
-  useEffect(()=>{
-    if (newTrack) {
-      console.log (newTrack.name)
-      let onTrackList = tracks.map(item => item.id).includes(newTrack.id)
-      if (!onTrackList){
-    
-      setTracks((prev) => ([ ...prev, newTrack]))
-      }
-    }
-  }
-  ,[newTrack])
 
   function handlePlayListNameChange({target}){
     console.log (target.value)
@@ -27,12 +16,12 @@ function PlayList({newTrack,accessToken}){
 
   function handleClick(){
     
-      Spotify.savePlaylistToSpotify(playlistName,tracks,accessToken)
+      Spotify.savePlaylistToSpotify(playlistName,playlist,accessToken)
     }
 
   const removeTrack = (trackToRemove) => {
     const trackIdToRemove = trackToRemove.id;
-    setTracks((prev)=>{return prev.filter((t)=>t.id!==trackIdToRemove)})
+    callback((prev)=>{return prev.filter((t)=>t.id!==trackIdToRemove)})
     }
 
     return (
@@ -48,7 +37,7 @@ function PlayList({newTrack,accessToken}){
         </form>
         
         </div>  
-          {tracks.map((track,index) => (
+          {playlist.map((track,index) => (
             <Track 
               key={index} 
               track={track} 

@@ -7,8 +7,8 @@ import './App.css'
 
 function App(){
     const [accessToken, setAccessToken] = useState('');
-    const [searchResults, setSearchResults] = useState([])
-    const [newTrack, setNewTrack]= useState()
+    const [searchResults, setSearchResults] = useState([]);
+    const [playlist,setPlaylist]=useState([]);
 
     const handleClick=()=>{
         //alert('click')
@@ -29,8 +29,16 @@ function App(){
 
       }
     const addToPlaylist=(t)=>{
-        setNewTrack(t)
+        let onPlayList = playlist.map(item => item.id).includes(t.id)
+        if (!onPlayList){
+      
+            setPlaylist((prev) => ([ ...prev, t]))
+        }
     }
+    const removeTrack = (trackToRemove) => {
+        const trackIdToRemove = trackToRemove.id;
+        setPlaylist((prev)=>{return prev.filter((t)=>t.id!==trackIdToRemove)})
+        }
 
     if(accessToken){
     return (
@@ -44,7 +52,7 @@ function App(){
                 <SearchResults searchResults={searchResults} callback={addToPlaylist} />
             </div>
             <div className="container">
-                <PlayList newTrack={newTrack} accessToken={accessToken} />
+                <PlayList playlist={playlist} accessToken={accessToken} removeCallback ={removeTrack}/>
             </div>
         
         </div>
