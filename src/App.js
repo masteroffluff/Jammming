@@ -34,7 +34,7 @@ function App(){
         //alert('click')
         //setAccessToken('');
         window.location.replace(
-            'http://localhost:3000',
+            'http://preeminent-mooncake-36d241.netlify.app',
           );
         Spotify.spotifyAccessToken(setAccessToken,'')
     }

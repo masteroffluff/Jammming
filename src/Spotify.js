@@ -2,7 +2,7 @@
 
 const client_id = '5a8b6b4d07494bc9b4885a6d959083c1';
 const scope = 'user-read-private playlist-modify-private playlist-modify-public';
-const redirectUri = 'http://fluffy-jammming-21517a.netlify.app';
+const redirectUri = 'http://preeminent-mooncake-36d241.netlify.app';
 
 //Obtain a Spotify Access Token
 
