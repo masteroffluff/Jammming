@@ -8,18 +8,22 @@ import './App.css'
 function App(){
     const [accessToken, setAccessToken] = useState('');
     const [searchResults, setSearchResults] = useState([]);
+    const [filteredResults, setFilteredResults]=useState([])
     const [playlist,setPlaylist]=useState([]);
+
+   
 
     useEffect(() => {
         Spotify.spotifyAccessToken(setAccessToken)
      },[]); // run the access routine once at the start
 
     useEffect(()=>{
-        if (playlist){
-        setSearchResults((prev)=>prev.filter((item)=>!((playlist.map((pl)=>pl.id)).includes(item.id))))
-        }}
+                   
+        setFilteredResults(()=>searchResults.filter((item)=>!((playlist.map((pl)=>pl.id)).includes(item.id))))
 
-        ,[playlist,searchResults])
+        }
+
+        ,[playlist,searchResults]);
         
 /*     const filterSerachList= ()=>{
         setSearchResults((prev)=>prev.filter((item)=>!((playlist.map((pl)=>pl.id)).includes(item.id))))
@@ -65,7 +69,7 @@ function App(){
             <div className='container'>
                 
                 <SearchBar callback={searchBarCallback} accessToken={accessToken} />
-                <SearchResults searchResults={searchResults} callback={addToPlaylist} />
+                <SearchResults searchResults={filteredResults} callback={addToPlaylist} />
             </div>
             <div className="container">
                 <PlayList playlist={playlist} accessToken={accessToken} removeCallback ={removeTrack}/>
