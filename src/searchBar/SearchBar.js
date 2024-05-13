@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import Spotify from './Spotify.js'
+import Spotify from '../Spotify.js'
 import style from './searchbar.module.css'
 
 function SearchBar({callback,accessToken}){

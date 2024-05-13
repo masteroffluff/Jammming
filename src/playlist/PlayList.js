@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import Track from './Track'
-import Spotify from './Spotify'
+import Track from '../track/Track'
+import Spotify from '../Spotify'
 import style from './PlayList.module.css'
 
 

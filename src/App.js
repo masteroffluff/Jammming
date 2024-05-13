@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import SearchResults from './SearchResults';
-import SearchBar from './SearchBar'
-import PlayList from './PlayList'
+import SearchResults from './searchResults/SearchResults';
+import SearchBar from './searchBar/SearchBar'
+import PlayList from './playlist/PlayList'
 import Spotify from './Spotify'
 import './App.css'
 
