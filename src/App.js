@@ -63,9 +63,9 @@ function App(){
     if(accessToken){
     return (
     <div className='App'>
-        <h1 style={{width:'100%', textAlign:'center'}}>JAMMMING aka Fluffy's Awesome Spotify List Maker</h1>
-       
-        <div className='trackContainer'>
+        <h1 style={{width:'100%', textAlign:'center'}}>JAMMMING</h1>
+        <h2>Spotify song list maker</h2>
+                <div className='trackContainer'>
             <div className='container'>
                 
                 <SearchBar callback={searchBarCallback} accessToken={accessToken} />
@@ -81,7 +81,7 @@ function App(){
     </div>)}
     return(
     <div className='App'>
-        <h1 style={{width:'100%', textAlign:'center'}}>Fluffy's Awesome Spotify List Maker</h1>
+        <h1 style={{width:'100%', textAlign:'center'}}>Jammming</h1>
     <button onClick={handleClick}>Logon to spotify</button>
     </div>)
   
