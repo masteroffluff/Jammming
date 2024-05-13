@@ -64,7 +64,7 @@ function App(){
     return (
     <div className='App'>
         <h1 style={{width:'100%', textAlign:'center'}}>JAMMMING</h1>
-        <h2>Spotify song list maker</h2>
+        <h2>Spotify Song List Maker</h2>
                 <div className='trackContainer'>
             <div className='container'>
                 
