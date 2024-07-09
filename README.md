@@ -1,70 +1,25 @@
-# Getting Started with Create React App
+# Jammming: Spotify Playlist Project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Introduction
 
-## Available Scripts
+This is a project for the Codecademy full stack developer course. The technologies used are React + CSS. This is the first project where students were left to solve some issues themselves.  
 
-In the project directory, you can run:
+## Implemetation
+The key skills here are:  
 
-### `npm start`
+* Connecting to a third party site via Oath.
+* Passing States between React components using props and callbacks.
+* Requesting and saving data to a third party site via fetch requests.  
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Styling 
+As Spotify is a music app I used css to present the track list builder in a style similar to the digital display on a car stereo. I just used plain CSS.  
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Challenges 
+The biggest challenge here was the acquisition of a OAuth token from Spotify since this was a new process for me. The challenge here was handing the control of the website back and forth from Spotify. I solved this issue by realising that i needed to reorder how the program checked for its auth state. The checks should happen in reverse chronological order with the check to be logged in happening first, then the check to see if there is a bearer token and finally showing the link to log in to Spotify last.  
 
-### `npm test`
+The next challenge was passing the files asynchronously from Spotify and into the various states of the site. MAstering nested callbacks was key here and letting the program handle its own flow.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Conclusion
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+The Jammming project provided a comprehensive introduction to working with React and CSS, emphasizing real-world development practices such as connecting to third-party APIs via OAuth, managing state across components, and handling asynchronous data flows. Successfully acquiring an OAuth token from Spotify and integrating it within the application workflow was a significant milestone, demonstrating the importance of authentication and authorization in web development.  
+Overall, this project has not only improved my technical skills but also reinforced the importance of problem-solving and adaptability in software development. Moving forward, these skills will be invaluable as I tackle more complex projects and continue my journey as a full stack developer.  
