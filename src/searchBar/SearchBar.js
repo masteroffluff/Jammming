@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import Spotify from '../Spotify.js'
+import spotify from '../utils/spotify.js'
 import style from './searchbar.module.css'
 
 function SearchBar({callback,accessToken}){
@@ -12,7 +12,7 @@ function SearchBar({callback,accessToken}){
     const handleSubmit=(e)=>{
         e.preventDefault();
         console.log("search " + accessToken)
-        Spotify.search(trackName,accessToken,callback)
+        spotify.search(trackName,accessToken,callback)
 
     }
     

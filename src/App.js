@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import SearchResults from './searchResults/SearchResults';
 import SearchBar from './searchBar/SearchBar'
 import PlayList from './playlist/PlayList'
-import Spotify from './Spotify'
+import spotify from './utils/spotify'
 import './App.css'
 
 function App(){
@@ -14,7 +14,7 @@ function App(){
    
 
     useEffect(() => {
-        Spotify.spotifyAccessToken(setAccessToken)
+        spotify.spotifyAccessToken(setAccessToken)
      },[]); // run the access routine once at the start
 
     useEffect(()=>{
@@ -24,19 +24,12 @@ function App(){
         }
 
         ,[playlist,searchResults]);
-        
-/*     const filterSerachList= ()=>{
-        setSearchResults((prev)=>prev.filter((item)=>!((playlist.map((pl)=>pl.id)).includes(item.id))))
-    } */
-
 
     const handleClick=()=>{
-        //alert('click')
-        //setAccessToken('');
         window.location.replace(
             'http://preeminent-mooncake-36d241.netlify.app',
           );
-        Spotify.spotifyAccessToken(setAccessToken,'')
+        spotify.spotifyAccessToken(setAccessToken,'')
     }
 
 

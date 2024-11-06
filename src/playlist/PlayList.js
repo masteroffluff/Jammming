@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import Track from '../track/Track'
-import Spotify from '../Spotify'
+import spotify from '../utils/spotify'
 import style from './PlayList.module.css'
 
 
@@ -16,7 +16,7 @@ function PlayList({playlist,accessToken, removeCallback}){
 
   function handleClick(){
     
-      Spotify.savePlaylistToSpotify(playlistName,playlist,accessToken)
+      spotify.savePlaylistToSpotify(playlistName,playlist,accessToken)
     }
 
   const removeTrack = (trackToRemove) => {

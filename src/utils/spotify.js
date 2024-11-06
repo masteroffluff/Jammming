@@ -6,7 +6,7 @@ const redirectUri = 'http://preeminent-mooncake-36d241.netlify.app';
 
 //Obtain a Spotify Access Token
 
-const Spotify = {
+const spotify = {
 
     spotifyAccessToken: (callback, accessToken) => {
         const urlParams = new URLSearchParams(window.location.search);
@@ -242,5 +242,5 @@ const Spotify = {
 
 
 
-export default Spotify;
+export default spotify;
 
